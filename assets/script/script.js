@@ -1,81 +1,76 @@
 //create our document ready dunction to make sure nothing runs before we load the page.
 $(document).ready(function () {
-    console.log("document ready!");
-}
-//find  all button clickevents on the page. 
-var saveBtnEl = document.querySelector("col-md-1");
-var textAreaEl = document.querySelector("col-md-10 user-input")
-//every row in the timeblock has its own id, grab them each 
-//(.getItemById)
+  console.log("document ready!");
 
-//grab the saved event options
-//create variables to save user input and time
-var toDoList = {
-    "9AM" = [],
-    "10AM" = [],
-    "11AM" = [],
-    "12PM" = [],
-    "1PM" = [],
-    "2PM" = [],
-    "3PM" = [],
-    "4PM" = [],
-    "5PM" = [],
+  //find  all button clickevents on the page.
+  var textAreaEl = document.querySelector(".description");
 
-    console.log(toDoList);
-}
+  //grabbed save button. 
+  $(".saveBtn").on("click", function () {
+    var contentKey = $(this).parent().attr("id");
+    var content = $(this).siblings(".description").val();
+    localStorage.setItem(contentKey, content);
+  });
+
+  //store items to local storage
+  //.val returns the values 
+  $("#hour-9 .description").val(localStorage.getItem("hour-9"));
+
+  $("#hour-10 .description").val(localStorage.getItem("hour-10"));
+
+  $("#hour-11 .description").val(localStorage.getItem("hour-11"));
+
+  $("#hour-12 .description").val(localStorage.getItem("hour-12"));
+
+  $("#hour-13 .description").val(localStorage.getItem("hour-13"));
+
+  $("#hour-14 .description").val(localStorage.getItem("hour-14"));
+
+  $("#hour-15 .description").val(localStorage.getItem("hour-15"));
+
+  $("#hour-16 .description").val(localStorage.getItem("hour-16"));
+
+  $("#hour-17 .description").val(localStorage.getItem("hour-17"));
+
+  //after saving to localStorage, alert the user.
+  //create some kind of timeOut value that removes the notification.
+
+  //need a for loop to loop through the timeBlocks
+
+  //create time updater function ()
+  //get the current time (moment.js)
+  $("#currentDay").text(moment().format("MMMM Do YYYYY, h:mm:ss a"));
 
 
-function timeBlock() {
-    //save to localStorage
-    localStorage.setItem("content", toDoList);
-    //Retrieve localStorage and render items to the correct rows. 
-    document.getElementById("9AM").innerHTML = localStorage.getItem("content");
-}  
-    //addEventListener('click');
-    saveBtnEl.addEventListener("click", timeBlock);
+  //check to see if have passed out time
 
-    //after saving to localStorage, alert the user.
-    //create some kind of timeOut value that removes the notification.
+  // check to see if the current hour matches timeEl from HTML
+  //check out removeClass and addClass
+  //().removeClass()
+  // check to see if the time in the future
+  // (one if statement)
+  //(create all the time elements)
+  blockColor();
+  function blockColor() {
+    var currentHour = moment().hours();
+    $(".time-block").each(function () {
+      var hourBlock = parseInt($(this).attr("id").split("-")[1]);
 
-//need a for loop to loop through the timeBlocks
-
-//create time updater function ()
-    //get the current time (moment.js)
-    var currentTimeEl = document.getElementById("currentDay");
-    currentTimeEl = text.moment().format('MMMM Do YYYYY, h:mm:ss a');
-
-    //create our loop to go over all the time blocks (for-loop)
-    for (var i = 0; i < toDoList.length; i++) {
-        console.log()
-    }
-
-     //check to see if have passed out time
-
-     // check to see if the current hour matches timeEl from HTML
-        //check out removeClass and addClass
-        //().removeClass()
-     // check to see if the time in the future
-     // (one if statement)
-     //(create all the time elements)
-
-function blockColor (){
-    if (currentTimeEl > 9){
-     $("9AM").addClass("past")
-    } else if (currentTimeEl < 9) {
-        $("9AM").addClass("future")
-    } else("present");
+      if (currentHour > hourBlock) {
+        $(this).addClass("past");
+      } else if (currentHour === hourBlock) {
+        $(this).addClass("present");
+        $(this).removeClass("past");
+      } else {
+        $(this).addClass("future");
+        $(this).removeClass("present");
+        $(this).removeClass("past");
+      }
+    });
     
-}
+  }
+  // setInterval()
+  //display:none
 
-
-// Get one of the rows working and copy and paste 
-
-
-
-
-
-
-
-
-
-)
+  // Get one of the rows working and copy and paste
+});
