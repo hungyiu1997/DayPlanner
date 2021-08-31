@@ -32,6 +32,9 @@ $(document).ready(function () {
 
   $("#hour-17 .description").val(localStorage.getItem("hour-17"));
 
+  function alertUser () {
+    
+  }
   //after saving to localStorage, alert the user.
   //create some kind of timeOut value that removes the notification.
 
